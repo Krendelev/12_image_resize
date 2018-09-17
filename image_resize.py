@@ -50,7 +50,7 @@ if __name__ == '__main__':
                 'New aspect ratio is different from the original one.',
                 'Final image will be distorted.'
                 )
-    if not args.width and not args.height and not args.scale:
+    if not any([args.width, args.height, args.scale]):
         args.scale = 1
     res_image = resize_image(orig_image, args.width, args.height, args.scale)
     if not args.output:
