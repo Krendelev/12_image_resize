@@ -2,16 +2,6 @@ import argparse
 from PIL import Image
 
 
-def load_image(path_to_original):
-    return Image.open(path_to_original)
-
-
-def save_image(image, path_to_result):
-    name, ext = path_to_result.split('.')
-    path = '{0}__{i[0]}x{i[1]}.{1}'.format(name, ext, i=image.size)
-    image.save(path)
-
-
 def change_ratio(orig_image, width, height):
     if args.width and args.height:
         orig_ratio = orig_image.size[0] / orig_image.size[1]
@@ -28,6 +18,12 @@ def resize_image(image, width, height, scale):
     elif not width:
         width = int(image.size[0] * height / image.size[1])
     return image.resize((width, height))
+
+
+def save_image(image, path_to_result):
+    name, ext = path_to_result.split('.')
+    path = '{0}__{i[0]}x{i[1]}.{1}'.format(name, ext, i=image.size)
+    image.save(path)
 
 
 def get_args():
@@ -51,7 +47,7 @@ def get_args():
 if __name__ == '__main__':
     args = get_args()
     try:
-        orig_image = load_image(args.file)
+        orig_image = Image.open(args.file)
     except FileNotFoundError:
         print('File not found')
     if change_ratio(orig_image, args.width, args.height):
