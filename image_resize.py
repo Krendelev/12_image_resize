@@ -42,14 +42,14 @@ if __name__ == '__main__':
         orig_image = load_image(args.file)
     except FileNotFoundError:
         print('File not found')
-    if (
-        (args.width and args.height) and
-        (args.width / args.height != orig_image.size[0] / orig_image.size[1])
-    ):
-        print(
-            'New aspect ratio is different from the original one.',
-            'Final image will be distorted.'
-            )
+    if args.width and args.height:
+        new_ratio = args.width / args.height
+        orig_ratio = orig_image.size[0] / orig_image.size[1]
+        if new_ratio != orig_ratio:
+            print(
+                'New aspect ratio is different from the original one.',
+                'Final image will be distorted.'
+                )
     if not args.width and not args.height and not args.scale:
         args.scale = 1
     res_image = resize_image(orig_image, args.width, args.height, args.scale)
