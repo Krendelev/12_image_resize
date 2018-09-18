@@ -4,7 +4,7 @@ from PIL import Image
 
 
 def ratio_changed(original, width, height):
-    return (original[0] / original[1]) != (width / height)
+    return original[0] / original[1] != width / height
 
 
 def compute_size(image_size, width, height, scale):
