@@ -3,7 +3,7 @@ import argparse
 from PIL import Image
 
 
-def ratio_changed(original, width, height):
+def is_ratio_change(original, width, height):
     return original[0] / original[1] != width / height
 
 
@@ -57,7 +57,7 @@ if __name__ == '__main__':
     except FileNotFoundError:
         exit('File not found')
     if (args.width and args.height and
-            ratio_changed(orig_image.size, args.width, args.height)):
+            is_ratio_change(orig_image.size, args.width, args.height)):
         print(
             'New aspect ratio is different from the original one. '
             'Final image will be distorted.'
